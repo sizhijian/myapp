@@ -1,0 +1,1128 @@
+@charset "utf-8";
+// 字体Unicode编码 微软雅黑:\5FAE\8F6F\96C5\9ED1 , 宋体:\5B8B\4F53
+$pcFont: '\5FAE\8F6F\96C5\9ED1', '\5B8B\4F53', arial;
+$colorDefault: #333;
+$mobileFont: 'Helvetica Neue', Helvetica, STHeiTi, Microsoft YaHei, sans-serif, Microsoft JhengHei, Arial;
+//reset
+* {box-sizing: border-box;-webkit-box-sizing: border-box;}
+html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;color: $colorDefault;background: transparent;font-family: $mobileFont;-webkit-user-select: none;}
+* input{-webkit-user-select: initial}
+body{margin: 0;}
+img{width: 100%;}
+button{appearance: none;-webkit-appearance: none;}
+a{color: #333;text-decoration: none;outline: 0;
+  &:visited,&:active,&:hover{text-decoration: none!important;outline: 0;}
+}
+input{border: none;}
+a, img {-webkit-touch-callout: none;/* 禁止长按链接与图片弹出菜单 */}
+i{font-style: normal;}
+table {border-collapse: collapse;border-spacing: 0;border: none;width: 100%;}
+//flex布局
+.f {display: flex;display: -webkit-flex;display: -webkit-box;}
+
+.fa {@extend .f;align-items: center;-webkit-align-items: center;-webkit-box-align: center;}
+
+.f ,.fa , .faj ,.fajc{
+  &>img,&>span,&>a{display: block;}
+  &>img{width: auto;}
+}
+.faj {@extend .fa;justify-content: center;-webkit-justify-content: center;-webkit-box-pack: center;}
+
+.f1 {flex: 1;-webkit-flex: 1;-webkit-box-flex: 1;}
+
+.fajc {@extend .faj;flex-direction: column;-webkit-flex-direction: column;-webkit-box-orient: vertical;}
+// 根据dpr设置字体大小
+@mixin font-dpr($font-size) {
+  font-size: $font-size;
+  [data-dpr="2"] & {
+    font-size: $font-size * 2;
+  }
+  [data-dpr="3"] & {
+    font-size: $font-size * 3;
+  }
+}
+// 圆角
+@mixin border-radius($radius) {
+  -webkit-border-radius:$radius;
+  -moz-border-radius:$radius;
+  -o-border-radius:$radius;
+  border-radius:$radius;
+}
+//过渡
+@mixin transform($transform) {
+  -webkit-transform:$transform;
+  -moz-transform:$transform;
+  -o-transform:$transform;
+  transform:$transform;
+}
+//省略与多行省略
+@mixin ellipsis($ellipsis){
+  @if $ellipsis == 1{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  @else{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $ellipsis;
+  }
+}
+//默认点击态
+@mixin active(){
+  &:active{background: rgba(0,0,0,.2);@include border-radius(10px);}
+}
+//@mixin contain($contain){
+//  @if $contain == 2{
+//      overflow: hidden;
+//      font-size: 0;
+//      & > *{width: 50%;@include font-dpr(14px);float: left;}
+//  }
+//}
+$colorBlue : #00A0E9;
+$colorWhite : #fff;
+$colorGray : #bababa;
+$colorLightGray : #d3d3d3;
+$colorBlack : #000;
+$colorTitle : #505050;
+$colorSubtitle : #696969;
+$colorBackground : #f5f5f5;
+//字体颜色
+.col-gray{color: #b0afaf !important}
+.col-orange{color: #f60 !important}
+.col-blue{color: #00a0e9}
+.col-red{color: #fc1b1b}
+.col-green{color: green!important}
+.col-gold{color: #f6ba05;}
+.col-silver{color: #9eadb1}
+.col-coppery{color: #f4691b}
+.col-light-gray{color: $colorLightGray;}
+.bg-blue{background: #ddf4fd}
+.bg-gray{background:#edecec}
+.bg-white{background: $colorWhite !important}
+.bg-default{background: #f5f5f5;}
+.txt-left{text-align: left!important;}
+.txt-center{text-align: center}
+.txt-right{text-align: right}
+.txt-underline{text-decoration: underline}
+.font-super{@include font-dpr(30px);}
+.font-big{@include font-dpr(25px);}
+.font-default{@include font-dpr(14px);}
+//字体颜色
+.fl{float: left!important;}
+.fr{float: right!important;}
+//清除
+.clear-both{clear: both;}
+.clear-padding{padding: 0 !important}
+.clear-position{position: static !important}
+//清除
+//蒙层
+.mask{position: fixed;top: 0;left: 0;z-index: 100;width: 100%;height: 100%;background: #000;opacity: .5}
+//蒙层
+//按钮
+.btn-default{ height: 1.173rem;line-height: 1.173rem;background: $colorBlue;color: $colorWhite;display: inline-block;text-align: center;@include font-dpr(16px);@include border-radius(15px);border: 1px solid transparent;width: 100%;
+  &:active{background: darken($colorBlue ,15%);box-shadow: 0 1px 3px rgba(0, 0, 0, .50);}
+}
+.btn-hollow{
+  @extend .btn-default;background: $colorWhite;color: $colorBlue;border-color: $colorBlue;
+  &:active{background: $colorBlue;color: $colorWhite;border-color: transparent;}
+}
+.btn-green{background:#2cb418 ;}
+//按钮
+//包裹
+.wrap{padding: 0 0 1.12rem;min-height: 100%;width: 100%;overflow: hidden;}
+.wrap-default{padding: 0 3%;}
+.wrap-btn-2{font-size: 0;position: relative;
+  &>*{width: 48%;display: inline-block}
+  &>:last-of-type{margin-left: 4%;}
+  &>.disable ~ span{position: absolute;z-index: 99;background: #fff;opacity: .5;top: 0;width: 51%;height: 100%;margin: 0;}
+  &>.disable:first-of-type ~ span{left: 0;}
+  &>.disable:last-of-type ~ span{left: 50%;}
+}
+.wrap-btn-3{font-size: 0;
+  &>*{width: 31%;display: inline-block;}
+  &>:nth-of-type(2),&>:last-of-type{margin-left: 3.5%;}
+}
+.wrap-section{padding: .15rem 3%;
+  p{line-height: .7rem;@include font-dpr(15px);
+    &.txt-letter{text-indent: 2em;}
+  }
+}
+.wrap-img{font-size: 0;}
+.wrap-profile{@extend .fa;@include font-dpr(15px);font-weight: 500;
+  img{height: 75%;@include border-radius(0.12rem);overflow: hidden;margin-right: 4% ;}
+}
+//包裹
+
+//标题
+.title-default{@include font-dpr(16px);overflow: hidden;font-weight: 400;color: $colorTitle;position: relative;
+  .info{width: 0.5rem;height: 0.5rem;line-height: 0.5rem;float: right;text-align: center;border: 1px solid #b0afaf;border-radius: 50%;display: inline-block;}
+  .right{float: right;@include font-dpr(13px);color: $colorSubtitle;@include active();}
+
+}
+.title-center{text-align: center;@include font-dpr(15px);color: $colorTitle;}
+fieldset{border: none;
+  padding: 0;position: relative;
+  &:after{content: '';height: 1px;top: 50%;background: #e4e4e4;position: absolute;width: 100%;z-index: -1;}
+  legend{display: table;margin: 0 auto;@include font-dpr(14px);background: $colorWhite;}
+}
+//标题
+//布局
+.spacing-default{padding: .15rem 0;}
+.auto-center{display: table;margin: 0 auto;}
+//布局
+//列表
+.list-default{background: $colorWhite;@include font-dpr(14px);
+  &>.item{
+    @extend .fa;
+    height: 1.2rem;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+    &>img{height:50%;margin-right: 2%;}
+    &:last-of-type{border: 0;}
+  }
+  &>.more{
+    @extend .more;
+  }
+}
+//列表
+//数据列表
+.list-data{@include font-dpr(14px);
+  &>.item{
+    .time{width: 20%;margin-right: 3%;}
+    @extend .fa;
+    border-bottom: 1px solid #e0e0e0;
+    position: relative;
+    padding: .3rem 3%;
+    img{width:15%;margin-right: 3%;}
+    .title-default{@include ellipsis(1);}
+    em{float: right;background: $colorBlue;color: $colorWhite;@include border-radius(25px);padding: 0 1.5%;}
+  }
+}
+//数据列表
+//数据带标题列表
+.list-title{@include font-dpr(14px);
+  .item{
+    .title{height: 0.933rem;padding: 0 3%;@extend .fa; border-bottom: 1px solid #e0e0e0;}
+    .content{
+      @extend .fa;
+      border-bottom: 1px solid #e0e0e0;
+      position: relative;
+      padding: .3rem 3%;
+      img{width:15%;margin-right: 3%;}
+      .title-default{@include ellipsis(1);
+        span{@include font-dpr(14px);}
+      }
+      a,em{float: right;background: $colorBlue;color: $colorWhite;@include border-radius(25px);padding: 0 1.5%;}
+    }
+  }
+}
+//数据带标题列表
+//字体小图标
+@font-face{font-family: "iconfont";src: url("iconfont.eot?t=1488444864618");src: url("iconfont.eot?t=1488444864618#iefix") format("embedded-opentype"), url("iconfont.woff?t=1488444864618") format("woff"), url("iconfont.ttf?t=1488444864618") format("truetype"), url("iconfont.svg?t=1488444864618#iconfont") format("svg")}
+.iconfont{font-family: "iconfont" !important;@include font-dpr(16px);font-style: normal;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;vertical-align: middle;}
+[class*='icon-']{@extend .iconfont;}
+.icon-home:before{content: "\e601"}
+.icon-home-active:before{content: "\e602"}
+.icon-mine:before{content: "\e603"}
+.icon-mine-active:before{content: "\e604"}
+.icon-location:before{content: "\e605"}
+.icon-talk:before{content:"\e606";}
+.icon-success:before{content:"\e607";}
+.icon-plus:before{content:"\e608";}
+.icon-duihao:before{content:"\e609";}
+.icon-right:before{content:"\e610";}
+.icon-search:before{content:"\e611";}
+
+
+//字体小图标
+//头部
+header{position: fixed;top: 0;width: 100%;height: 1.133rem;line-height: 1.133rem;@include font-dpr(16px);color: #333;overflow: hidden;background-color: #fff;z-index: 99;
+  &:after{border-bottom: 1px solid #dbdee5;left: 0;width: 100%;height: 1px;bottom: 0;content: " ";position: absolute;-webkit-transform-origin: 0 100%;transform-origin: 0 100%;-webkit-transform: scaleY(0.5);transform: scaleY(0.5)}
+  .left,.back{width: 20%;height: 100%;float: left}
+  .back:before{content: '';width: 0.3rem;height: 0.3rem;border: 0.026rem solid #ccc;border-left: none;border-bottom: none;transform: rotate(-135deg);-webkit-transform: rotate(-135deg);margin-top: -.15rem;position: absolute;top: 50%;left: 4%;}
+  .center{width: 60%;float: left;text-align: center}
+  .right{width: 20%;float: right;height: 100%}
+  .location{width: 20%;height: 100%;float: left;color: #ff6600;line-height: inherit;font-family: "iconfont" !important;font-style: normal;-webkit-font-smoothing: antialiased;
+    &:before{content: "\e605";font-size: 0.8rem;vertical-align: middle}
+  }
+  .mine{@extend .right;font-family: "iconfont" !important;@include font-dpr(24px);font-style: normal;-webkit-font-smoothing: antialiased;text-align: right;
+    &:after{content: "\e604";color: #00A0E9;margin-right: 12%;}
+  }
+}
+.more{
+  &:before{ content: ''; width: .34rem; height: .34rem; border: 2px solid #e0e0e0; border-right: none; border-top: none;@include transform(rotate(-135deg));margin-top: -.17rem; position: absolute; top: 50%; right: 1%;}
+}
+//头部
+//底部菜单
+.footer{z-index: 90;position: fixed;bottom: 0;width: 100%;background: #fff;height:1.12rem;
+  &:after{border-bottom: 1px solid #dbdee5;left: 0;width: 100%;height: 1px;top: 0;content: "";position: absolute;-webkit-transform-origin: 0 -50%;transform-origin: 0 -50%;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+  nav{height: inherit;position: relative;z-index: 9;
+    &>a{text-align: center;@include font-dpr(14px);color: #777;@include active();
+      i{display: block;color: #777;@include font-dpr(25px);height: .7rem;line-height: .7rem;width: .7rem;
+        margin: 0 auto;
+        &.justfont{@include font-dpr(20px);font-weight: 500;}
+      }
+      &.active{
+        p,i{color: $colorBlue}
+      }
+      p{line-height: .4rem;}
+      &:first-of-type.active{
+        i:before{content: "\e602"}
+      }
+      &:last-of-type.active{
+        i:before{content: "\e604"}
+      }
+    }
+  }
+}
+//底部菜单
+//首页
+.wrap-menu-index,.wrap-menu-line{overflow: hidden;
+  &>a{height: 2.386rem;border-bottom: 1px solid $colorBackground;
+    &:nth-of-type(2n-1){border-right: 1px solid $colorBackground;}
+    img{height: 1.56rem;margin: 0 4%;}
+
+  }
+  div{margin-right: 2%;
+    .title{@include font-dpr(14px);font-weight: 400;}
+    p{@include font-dpr(13px);color: $colorSubtitle;}
+  }
+}
+.wrap-menu-line{&>a{@include active();}}
+.wrap-menu-index{
+  &>a{float: left;width: 50%;}
+  img{height: 1.3rem;margin: 0 4%;}
+}
+.wrap-menu-brand {
+  .list{font-size: 0;white-space: nowrap;overflow-x: auto;-webkit-overflow-scrolling: touch;padding-bottom:.3rem;
+    &::-webkit-scrollbar{display: none;}
+    a{@include font-dpr(13px);display: inline-block;width: 23%;margin-left: 3%;
+      .wrap-img{height: 23vw;border: 1px solid $colorBackground;
+        img{height: 100%;}
+      }
+      p{margin-top: .3rem;}
+      &:last-of-type{margin-right: 3%;}
+    }
+  }
+}
+.nav-brand{font-size: 0;padding: 0 0 0 30%;position: relative;background: $colorWhite;height: 1.12rem;
+  .fix{padding: .28rem 0;width: 100%;position: absolute;left: 0;
+    a{line-height: 0.56rem;width: 13%;
+      &:first-of-type{left: 1%;position: absolute;}
+      &:nth-of-type(2){left: 15%;position: absolute;}
+    }
+  }
+  .scroll{white-space: nowrap;overflow-x: auto;-webkit-overflow-scrolling: touch;padding: .28rem 0;position: relative;
+    a{padding: 0 3%;margin-right: 2%;}
+    :last-of-type{margin-right: 7%;}
+  }
+  a{display: inline-block;line-height: 0.56rem;@include font-dpr(13px);text-align: center;@include active();
+    &.active{background: $colorBlue;color: $colorWhite;@include border-radius(50px);}
+
+  }
+  &:after{content: "\e610";position: absolute;right: 0;top: 0;background: rgba(255,255,255,1);color: $colorSubtitle;line-height: 0.56rem;padding: .28rem 1%;@extend .iconfont;}
+}
+.wrap-item{font-size: 0;background: $colorBackground;padding: .266rem 0;
+  .spacing-default.txt-center{@include font-dpr(14px);}
+  .item{width: 45.5%;@include font-dpr(13px);background: $colorWhite;margin:0.266rem 0 0 3%;display: inline-block;
+    .title{@extend .fa;@include font-dpr(12px);height: 1.026rem;border-bottom: 1px solid $colorBackground;padding: 0 4%;
+      img{width: 16%;margin: 0 4% 0 0;}
+      div{@include ellipsis(2);@extend .f1;}
+    }
+    .wrap-img{height: 3.84rem;position: relative;overflow: hidden;
+      //      span{position: absolute;left: -.36rem;top: 0.15rem;width: 1.44rem;background: #ff5100;@include font-dpr(13px);color: $colorWhite;text-align: center;line-height: 0.453rem;@include transform(rotate(-45deg));@include ellipsis(1);}//首页斜标签
+      img{height: 100%;}
+    }
+    .title-default{@extend .spacing-default;@include font-dpr(13px);text-align: center;@include ellipsis(1);padding: .15rem 3%;}
+    .btns{font-size: 0;border-bottom: 1px solid $colorBackground;padding-bottom: .2rem;
+      &>*{width: 42%;line-height: 0.7rem;@include border-radius(13px);border: 0.026rem solid $colorGray;display: inline-block;@include font-dpr(12px);color: $colorTitle;text-align: center;margin: 0 4%;@include active();
+      }
+    }
+    .bottom{@extend .fa;
+      .f1{text-align: center;color: $colorGray;@extend .spacing-default;@include active();@include ellipsis(1);width: 50%;
+        i{margin-right: 2%;}
+      }
+    }
+  }
+
+}
+//首页
+//暂无数据
+.no-data{@extend .txt-center;@include font-dpr(14px);padding: .3rem 3%;}
+//暂无数据
+//个人中心
+.mine.wrap-profile{height: 2.32rem;}
+//个人中心
+//车辆信息
+.car-info.wrap-default{@include font-dpr(14px);
+  .wrap-img{
+    width: 40%;font-size: 0;display: block;margin: 0.4rem auto;
+  }
+  .price{
+    .col-blue{@include font-dpr(18px);}
+  }
+  .fa{
+    .f1{width: 33.333%;}
+    .f1:nth-of-type(2){border-left: 1px solid $colorGray;border-right: 1px solid $colorGray;}
+  }
+  .col-gray{padding: .1rem 0;}
+}
+//车辆信息
+//分享
+.wrap-share{@extend .fa;
+  img{width: 20%;}
+}
+.share img{position: fixed;top: 0;z-index: 101;height: auto}
+//分享
+//表单页
+.input-only{height: 1.2rem;line-height: 1.2rem;padding: 0 2%;text-align: right;margin: 0.666rem 0 0.933rem;border: 2px solid #e3e3e3;
+  &.active{border-color: $colorBlue;border-width: 3px;}
+}
+.input-txt-vin{display: inline-block;width: 100%;height: 80%;text-align: right;text-transform: uppercase;@include font-dpr(16px);font-weight: 500;color: $colorTitle;}
+.input-txt-vin::-webkit-input-placeholder{color: $colorTitle;}
+.wrap-link {overflow: hidden;
+  a{color: #00b0ff;text-decoration: underline;float: right;margin-top: .25rem;@include font-dpr(14px);}
+}
+//表单页
+//车辆对比
+.car-compore{overflow: hidden;
+  li{position: relative;border-top: 1px solid $colorGray;border-bottom: 1px solid $colorGray;
+    .select-active{position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;z-index: 1;border: 3px solid $colorBlue;display: none;}
+    .select-active span{position: absolute;top: 0;left: 0;width: 0;height: 0;border-width: 0.746rem 1.12rem 0 0;border-style: solid;border-color: $colorBlue transparent transparent $colorBlue;
+      i{position: absolute;content: "";top: 0;left: 0.074rem;margin-top: -0.746rem;height: 0.298rem;width: 0.56rem;background: transparent;border-left: 2px solid $colorWhite;border-bottom: 2px solid $colorWhite;@include transform(rotate(-33deg));}
+    }
+    h1{@include ellipsis(2);}
+  }
+  &.contain-2{
+    li{float: left;width: 50%;}
+  }
+  .active .select-active{display: block;}
+}
+ul.options-compore{@include font-dpr(13px);
+  li{
+    div{text-align: center;padding: 0 .5%;border-bottom: 1px solid #efefef;line-height: 1rem;}
+    .left{width: 28%;background: #f8f8f8;}
+    .f1{border-left: 1px solid #efefef;
+    }
+  }
+  .title{border-left: .1rem solid $colorBlue;line-height: .9rem;padding: 0 4%;border-bottom: 1px solid #efefef;@include font-dpr(15px);color: $colorBlue;font-weight: 500;}
+}
+//车辆对比
+//车辆选择
+.car-select{
+  li{position: relative;border-bottom: 1px solid #bababa;
+    .wrap-img{width: 23%;}
+    .screen{position: absolute;z-index: 99;background: #fff;opacity: .5;top: 0;width: 100%;height: 100%;display: none;}
+    .content{padding: .3rem 0;@extend .fa;}
+    .car-info{width: 64%;}
+    .select-icon{width: 13%;
+      span{position:relative;height: 0.56rem;width: 0.56rem;border-radius: 50%;display: block;vertical-align: sub;border: 1px solid #666;margin: 0 auto;}
+    }
+    &.active .select-icon span{background: #5bb4ff;border-color: transparent!important;}
+    &.active .select-icon span:after{content: '';position: absolute;height: 0.186rem;width: 0.335rem;border-left: 2px solid #fff;border-bottom: 2px solid #fff;left: 0;top:0;margin-top: 0.093rem;margin-left: 0.067rem;@include transform(rotate(-47deg));}
+  }
+}
+//车辆选择
+//时间选择
+.mbsc-mobiscroll .mbsc-cal-days th{border-color: #00a0e9 !important;color: #00A0E9 !important}
+.mbsc-mobiscroll .mbsc-cal-btn-txt,
+.mbsc-mobiscroll .mbsc-fr-btn,
+.mbsc-mobiscroll .mbsc-cal-hl-now .mbsc-cal-today{color: $colorBlue !important;line-height: .8rem;}
+.mbsc-mobiscroll .mbsc-cal .mbsc-cal-day-sel .mbsc-cal-day-i,
+.mbsc-mobiscroll .mbsc-cal .mbsc-cal-sc-sel .mbsc-cal-sc-cell-i{background-color: $colorBlue !important}
+.mbsc-mobiscroll .mbsc-fr-c{@include font-dpr(12px);}
+.mbsc-mobiscroll .mbsc-fr-w{@include font-dpr(12px);}
+.mbsc-mobiscroll .mbsc-cal-btnc{font-size: 1em;}
+.mbsc-mobiscroll .mbsc-cal-days th{@include font-dpr(14px);}
+.mbsc-cal-header{line-height: 0.8rem;overflow: hidden;height: .8rem;}
+.mbsc-mobiscroll .mbsc-cal .mbsc-cal-days-c{height: .8rem;}
+.mbsc-cal .mbsc-cal-btn{height: auto;}
+.mbsc-fr-btn-cont{@include font-dpr(14px);}
+.mbsc-cal .mbsc-cal-btn{width: 0.8rem;}
+#date_start_dummy{@extend .txt-right;}
+.mbsc-mobiscroll .mbsc-sc-whl-l{border-color: $colorBlue;}
+//时间选择
+//导航
+[class*='nav-contain-']{font-size: 0;border: 1px solid #C9C9C9;-webkit-border-radius: 4px;border-radius: 4px;
+  &>*{display: inline-block;@include font-dpr(14px);color: #b0afaf!important;border-right: 1px solid #C9C9C9;text-align: center;line-height: 1.093rem;background: #f5f5f5;}
+  &>:last-of-type{border-right: none;}
+  &>:first-of-type{border-top-left-radius: 4px;border-bottom-left-radius: 4px}
+  &>:last-of-type{border-top-right-radius: 4px;border-bottom-right-radius: 4px}
+  .active{color: $colorBlue!important;background: $colorWhite;}
+}
+
+.nav-contain-2>*{width: 50%;}
+.nav-contain-3>*{width: 33.333%;}
+.nav-contain-4>*{width: 25%;}
+.nav-contain-5>*{width: 20%;}
+//导航
+//导航对应的内容
+.content-nav{
+  .item{
+    .f1{border-right: 1px solid $colorWhite;
+      :first-of-type{@include font-dpr(14px);}
+      :last-of-type{background: #ddd;color: $colorWhite;line-height: 1.013rem;position:relative;@include font-dpr(13px);
+      }
+      span{height: .3rem;width: .3rem;display: block;margin: 0 auto;background: #ddd;@include transform(rotate(45deg));margin-bottom: -.15rem;}
+
+    }
+    .active{
+      :last-of-type{background: $colorBlue;color: $colorWhite;}
+    }
+    .type-1{@include font-dpr(14px);
+      .left{height: 1.519rem;width: 1.519rem;background-color: #ff5100;color: #fff;border-radius: 50%;line-height: 1.519rem;text-align: center;}
+      .right{text-align: center;margin-left: 10%;@include font-dpr(14px);}
+    }
+  }
+
+  :last-of-type{border: none;}
+}
+//导航对应的内容
+//车况选择
+.car-state-select{
+  li{padding: .15rem 1%;border: 1px solid transparent;@include border-radius(10px);
+    .title{padding-left: 10%;color: #575757;font-weight: 500;line-height: 0.7rem;background-repeat: no-repeat;background-position: 3%;background-size: auto 100%;@include font-dpr(15px);}
+    &:nth-of-type(1) .title{background-image: url(../../images/weixin/icon-level-gold.png)}
+    &:nth-of-type(2) .title{background-image: url(../../images/weixin/icon-level-silver.png)}
+    &:nth-of-type(3) .title{background-image: url(../../images/weixin/icon-level-copper.png)}
+    &:nth-of-type(4) .title{background-image: url(../../images/weixin/icon-level-iron.png)}
+    p{color: #5c5c5c;}
+  }
+  .active{border-color: #00A0E9;position: relative;
+    &>*{color: $colorBlue!important;}
+    &>span{position: absolute;right: 0;bottom: 0;width: 0;height: 0;border-width: 0.298rem;border-style: solid;border-color: transparent #00b0ff #00b0ff transparent;
+      i{position: absolute;content: "";top: 0;left: -.053rem;height: 0.149rem;width: 0.298rem;background: transparent;border-left: 2px solid #fff;border-bottom: 2px solid #fff;@include transform(rotate(-40deg));}
+    }
+    &:after{content: '';background-image: url(../../images/weixin/hit.png);display: block;width: 1.413rem;height: 1.16rem;position: absolute;background-repeat:no-repeat;background-size: auto 100%;top: -.634rem;right: 9%}
+  }
+}
+//车况选择
+//颜色选择
+.wrap-colors{position: fixed;bottom: 0;left: 0;right: 0;text-align: center;@extend .bg-white;z-index: 100;
+  .title{overflow: hidden;line-height: 1.12rem;height: 1.12rem;border-bottom: 1px solid #c9c9c9;text-align: center;@extend .bg-default;@include font-dpr(14px);position: relative;z-index: 101;
+    .left{width: 15%;float: left;}
+    .center{float: left;width: 70%;}
+  }
+  ul{position: relative;z-index: 101;overflow: hidden;@extend .bg-white;
+    li{float: left;margin: 0.2rem 3.3%;width: 18.4%;text-align: center;position: relative;
+      .select-active span{position: absolute;right: 0;bottom: 0;width: 0;height: 0;border-width: 0.453rem 0.453rem 0 0;border-style: solid;border-color: transparent $colorBlue;
+        i{position: absolute;content: "";bottom:.1rem;height: 0.106rem;width: 0.186rem;background: transparent;border-left: 2px solid #fff;border-bottom: 2px solid #fff;@include transform(rotate(-45deg));left: .2rem;}
+      }
+      .color-item{border: 1px solid #e6e6e6;border-radius: 5px;height: 1.066rem;line-height: 1.066rem;@include font-dpr(16px);
+        .dot{width: 0.32rem;height: 0.32rem;border-radius: 50%;display: inline-block;margin-right: 5%}
+      }
+      input[type='radio']{position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;opacity: 0;z-index: 2;
+        &:checked+.select-active{display: block;border: 2px solid $colorBlue;}
+        &+.select-active{position: absolute;top: 0;left: 0;right: 0;bottom: 0;width: 100%;height: 100%;z-index: 1;display: none;}
+      }
+    }
+  }
+  .black{background: $colorBlack;}
+  .white{background: $colorWhite;border: 1px solid $colorGray;}
+  .silvery{background: #e3e3e3}
+  .red{background: #ff0000}
+  .brown{background: #c78555}
+  .brown1{background: #8b4513}
+  .blue{background: #056fda}
+  .maroon{background: #69160f}
+  .golden{background: #f9bd1b}
+  .orange{background: #f28028}
+  .yellow{background: #f28028}
+  .purple{background: #f28028}
+  .green{background: #2cb418}
+}
+//颜色选择
+//报告
+.wrap-report{border: 1px solid $colorBlue;@include border-radius(15px);overflow: hidden;
+  .title{@include font-dpr(15px);text-align: center;line-height: 1.2rem;color: $colorBlue;}
+  .row{padding: .25rem 2%;border-top: 1px solid $colorLightGray;@extend .fa;@include font-dpr(14px);}
+  &>.item{border-top: 1px solid $colorLightGray;overflow: hidden;@include font-dpr(14px);@extend .fa;
+    .f1{width: 50%;padding: .25rem 1.5%;@include font-dpr(14px);
+      &:first-of-type{border-right: 1px solid $colorLightGray;}
+    }
+    .left,.item-list+p{padding-left: 5.3%;padding-right: 5.3%}
+    .item-list+p{margin-bottom: 1.285rem}
+    .recond-icon{background: url(../../images/weixin/recond.png) 9.3% center no-repeat;background-size: 10%;text-indent: 1.2rem;padding-left: 5.3%}
+    div.right{padding-right: 3%;text-align: right}
+  }
+  .recond-item{float: left;width: 50%;position: relative;@include font-dpr(14px);color: #454545}
+  //标记列表
+  .list-mark{font-size: 0;border-top: 1px solid $colorLightGray;
+    li{width: 25%;display: inline-block;@include font-dpr(14px);background: url(../../images/weixin/right-icon.png) right center no-repeat;background-size: auto 0.266rem;display: inline-block;color: #6f6f6f;padding: .25rem 1%;
+      &.wrong{background-image: url(../../images/weixin/wrong-icon.png);}
+      &:nth-of-type(4n-3){width: 19%}
+      &:nth-of-type(4n-2){width: 29%}
+      &:nth-of-type(4n-1){width: 23%}
+      &:nth-of-type(4n){width: 28%}
+    }
+  }
+  table{border-top: 1px solid $colorLightGray;@include font-dpr(14px);
+    th,td{padding: .25rem 1.5%;text-align: center;}
+    th{background: #f5f5f5;}
+    td{border-top: 1px solid $colorLightGray;text-align: center;color: $colorGray;}
+  }
+  img{height: .35rem;margin-right: 2%;}
+}
+//报告
+
+//开始估值//
+.start-valuation{height:3.373rem;width: 100%;background: #f5f5f5 url(../../images/weixin/valuebg.png) no-repeat;background-size: 100%;color: #00a0e9;padding: 0.64rem 0 0.84rem 0;
+  div:first-child{font-size: 0.3733rem;margin-bottom: 0.34rem;}
+  div:last-child{font-size: 0.933rem;}
+}
+//开始估值//
+//车型选择
+.wrap-select-car{display: none;
+  .mask{transition: left .3s ease-out;left: 100%;}
+  //品牌
+  .brand{position: absolute;top: 0;left: 100%;background: $colorWhite;width: 82%;z-index: 101;padding-top: 1.133rem;transition: left .3s ease-out;;
+    .title{text-align: center;line-height: 1.133rem;@include font-dpr(15px);border-bottom: 1px solid $colorGray;position: fixed;top: 0;left: 100%;z-index: 102;background: $colorWhite;width: 82%;transition: left .3s ease-out;;
+      .close{position: absolute;left: 0;top: 0;height: 100%;width: 20%;
+        &:active{background: rgba(0,0,0,.2);@include border-radius(10px);}
+      }
+    }
+    .nav-brand-word{position: fixed;right: 0;width: 10%;text-align: center;z-index: 103;top: 1.133rem;
+      li{line-height: 0.625rem;@include font-dpr(14px);
+        &:active{background: rgba(0,0,0,.2);@include border-radius(20px);}
+      }
+    }
+    .hover-wrod{line-height: 1rem;width: 1rem;position: fixed;top: 50%;right: 41%;margin-top: -0.5rem;margin-left: -0.5rem;background: rgba(0,0,0,0.2);color: $colorWhite;@include font-dpr(18px);z-index: 101;text-align: center;@include border-radius(15px);display: none;}
+    .sub-title{background: $colorLightGray;display: block;line-height: 0.666rem;padding: 0 3%;width: 100%;}
+    .hot-brand{font-size: 0;
+      a{display: inline-block;width: 25%;text-align: center;@include font-dpr(13px);padding: .1rem 0;
+        &:active{background: rgba(0,0,0,.2);}
+        img{display: block;width: 50%;margin: 0 auto;}
+      }
+    }
+    .item{@extend .fa;position: relative;height: 1.04rem;@include font-dpr(13px);background: $colorWhite;
+      img{width: 9%;margin: 0 0 0 4%;}
+      &:after{content: "";position: absolute;bottom: 0;height: 1px;width: 96%;background: $colorGray;left: 4%;}
+      &:active{background: rgba(0,0,0,.2);}
+      div{margin: 0 0 0 4%;}
+    }
+  }
+  //车系
+  .series{position: absolute;top: 0;left: 100%;background: $colorWhite;width: 82%;z-index: 104;padding-top: 1.133rem;display: none;transition: left .3s ease-out;
+    .title{text-align: center;line-height: 1.133rem;@include font-dpr(15px);border-bottom: 1px solid $colorGray;position: fixed;top: 0;right: 0;z-index: 105;background: $colorWhite;width: 82%;transition: left .3s ease-out;;
+      .back{position: absolute;left: 0;top: 0;height: 100%;width: 20%;
+        &:active{background: rgba(0,0,0,.2);@include border-radius(10px);}
+      }
+    }
+    .wrap-scroll{overflow-y: scroll;-webkit-overflow-scrolling: touch;height: 100%;}
+    .sub-title{background: $colorLightGray;display: block;line-height: 0.666rem;padding: 0 3%;width: 100%;right: 0;}
+    .item{@extend .fa;position: relative;height: 1.04rem;@include font-dpr(13px);background: $colorWhite;
+      img{width: 9%;margin: 0 0 4%;}
+      &:after{content: "";position: absolute;bottom: 0;height: 1px;width: 96%;background: $colorGray;left: 4%;}
+      &:active{background: rgba(0,0,0,.2);}
+      div{margin: 0 0 0 4%;}
+    }
+  }
+  .yearmodel{@extend .series;height: 100%;
+    .item{padding: .2rem 4%;
+      div{margin: 0;}
+    }
+  }
+}
+//车型选择
+.btns-choice{
+  div{
+    a{@include font-dpr(23px);
+      span{@include font-dpr(12px);}
+    }
+    &.active a{background: $colorBlue;color: $colorWhite;}
+  }
+}
+
+#wrapper{width: 100%}
+
+/*估值结果*/
+.value-result{    padding-bottom: 0.3rem;}
+.value-result li .talk-box{border: 1px solid #78cdf3;border-radius: 4px;overflow: hidden}
+.value-result li .talk-box textarea{width: 100%;border: none;border-top-left-radius: 4px;border-top-right-radius: 4px;border-bottom: 1px solid #dfdede;appearance: none;-webkit-appearance: none;resize: none;padding: .25rem 2%}
+.value-result li .talk-box .fa{padding: 0 0 .41rem}
+.value-result li .talk-box .fa img{width: 2rem;height: 2rem;margin: 0 1.6%;border-radius: 3px}
+.value-result li .talk-box .fa div{color: #00A0E9;width: 50%}
+.value-result li .talk-box .fa input{line-height: 2.5rem;width: 24%;margin-right: 1.6%;background: #00a0e9;color: #fff;border-radius: 4px;appearance: none;-webkit-appearance: none}
+.value-result li dt{line-height: 2.58rem;border-bottom: 1px solid #dad9d9}
+.value-result li div .item{overflow: hidden}
+.value-result li div .item .icon-box{width: 10%;font-size: 0;border-radius: 5px;overflow: hidden;margin: .83rem 0}
+.value-result li div .item div{width: 90%}
+.value-result li div h2{color: #09aaee;font-size: 1rem;padding-left: 3%;line-height: 1.5rem;margin-top: .7rem}
+.value-result li div h2 span.time{color: #9a9a9a;margin-left: 10%}
+
+.partsInfo{height: 3.785rem;line-height: 3.785rem;clear: both;border-bottom: 1px solid #e0e0e0;background: #f5f5f5;color: #6f6f6f;position: relative;display: none}
+.partsInfo li{float: left;margin-right: 3.4%}
+.partsInfo li span{width: 0.571rem;height: 0.571rem;display: inline-block;border-radius: 50%;background: #ff5400;margin-right: 0.1rem}
+.partsInfo .triangle{width: 0;height: 0;border-width: 0 0.714rem 0.714rem;border-style: solid;border-color: transparent transparent #f6f6f6;position: absolute;top: -0.71rem;left: 38%}
+.partsInfo-second .triangle{left: 88%}
+
+//投票图片区域
+.compore-img{position: relative;font-size: 0; border-bottom: 1px solid #e0e0e0;overflow: hidden;
+  .left,.right{position: absolute;bottom: 0;height: 91%;width: 50%;
+    img{position: absolute;top: 50%;left: 50%;height:3rem;width: 3rem;margin-top: -1.5rem;margin-left: -1.5rem;z-index: 1;display: none;}
+  }
+  .left{left: 0;
+    &>div{height: 0%;}
+    div{right: 50%;}
+  }
+  .right{right: 0;
+    &>div{height: 0%;}
+    div{left:50%}
+  }
+  .layer{
+    position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 160, 233, 0.5);opacity:0;-webkit-transition: all 1.5s;
+    span{
+      width: 40%;margin: -0.5rem auto 0;position: relative;top: 50%;height: 1rem;text-align: center;color: #00A0E9;font-size: 0.5rem;background: #fff;display: block;line-height: 1rem;z-index: 5;border-radius: 4px;
+    }
+  }
+  .mask-layer{@extend .layer;z-index: 2;background: #000;opacity: 0.7;}
+  div{
+    &>div{transition: height 0.5s ease;-webkit-transition: height 0.5s ease;width: .14rem;background: #fff;position: absolute;bottom: 0;z-index: 2;}
+    p{position: absolute;bottom: 100%;left: -.93rem;width: 2rem;text-align: center;@include font-dpr(16px);color: #fff;font-weight: 500;opacity: 0;}
+  }
+}
+//投票图片区域
+//抛物线
+#ball_left,.ball-fly{width: .5rem;height: .5rem;background-color: $colorWhite;position: absolute;top: 0;border-radius: 50%;z-index: 999;left: 50%;margin-left: -.25rem;opacity: 0;}
+//抛物线
+
+.list-normal{  margin-top: 1.133rem;
+  li{
+    position: relative;
+    padding: .3rem 3%;    border-bottom: 1px solid #dbdee5;
+  }
+}
+.contbox{    display: flex;
+  display: -webkit-flex;
+  display: -webkit-box;
+  align-items: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  .icon-box {width: 15%;margin-right: 3%;}
+  .car-name{font-size: 0.4rem;}
+  .car-price{font-size: 0.4rem;}
+}
+
+
+.list-normal .price{    width: 9%;
+  font-size: 0.35rem;}
+
+/*结果页*/
+.wrap-publish{background:#f5f5f5;
+  a {height: 100%;height: 0.8rem;
+    line-height: 0.8rem;margin-right: 2%;
+    i{display: inline-block;}
+    span {
+      color: #00b0ff;
+      @include font-dpr(13px);
+      display: inline-block;
+    }
+  }
+}
+.comment-wrap{
+  .item{margin: 0.3rem 0;
+    img{width: 15%;margin-right: 3%;}
+    span{font-size: 0.4rem;}
+
+  }
+
+}
+.item{
+  .focus-icon{color: #00b0ff;text-align: center;
+    @include font-dpr(11px);
+    width: 19%;
+    border: 2px solid #00B0FF;
+    border-radius: 30px;
+    line-height: 0.573rem;
+    &:active{background: #00A0E9;color: #fff;border-color: transparent;}
+  }
+  .focus-icon.active{
+    border-color: #a0a0a0;color: #a0a0a0;
+  }
+}
+.wrap{
+  .times{color: #bababa;@include font-dpr(11px)}
+  fieldset{
+    legend{font-size: 0.4rem;color: #636363;}
+  }
+  fieldset+div{color: #636363;font-size: 0.293rem;}
+  .txt-cont{font-size: 0.32rem;color:#636363 ;}
+}
+/*我的*/
+.mine{height: 4rem;background:#23ade5;color: #fff;text-align: center;
+  img{width: 2.133rem;border-radius: 50%;margin-top: 0.586rem;margin-bottom: 0.266rem;}
+  div{@include font-dpr(14px)}
+}
+.mine-info{font-size: 0;background: #129fd7;padding: 0.093rem 0;@extend .fa;
+  .item{font-size: 0.346rem;color: #fff;height: 1.053rem;text-align: center;margin-top:0.066rem;@extend .f1;
+    &:nth-of-type(2){border-right: 1px solid #d0ecf7;border-left: 1px solid #d0ecf7;}
+    p:first-child{@include font-dpr(13px)}
+    p:last-child{@include font-dpr(16px)}
+  }
+}
+.list-default{
+  &>.list-item{height: 1.466rem;
+    img{height: 66%;}
+  }
+}
+.voteInfo-list,.comment-list{
+  img:first-child{width: 12%;}
+  img:last-child{width: 21%;}
+}
+.voteInfo-list,.comment-list,.focus-list{
+  .item{@extend .fa;padding: 0.226rem 3%; position: relative;   border-bottom: 1px solid #e0e0e0;
+    img{width: 17%;}
+  }
+  .more:before{right: 4%;}
+}
+/*投票消息*/
+.voteInfo-list{
+  .item{
+    img:last-child{margin-left: 1%;}
+    span{width: 62%;margin-left: 1%;color: #3d3d3d;line-height: .5rem;@include font-dpr(13px)}
+    &:last-child{border-bottom: none;}
+  }
+}
+//评论消息
+.wrap-comment{@extend .fa;
+  img{width: 12%;margin-right: 2%;}
+  div{width: 86%;@include font-dpr(14px);
+    p:last-child{@include font-dpr(12px);color: #636363;margin-top: 0.2rem;@include ellipsis(1);}
+  }
+}
+//评论消息
+.comment-list{
+  //  .item-list{padding-top: 1.72rem;}
+  .item{
+    img:last-child{margin-left: 2%;}
+    .comment{width:61%;margin-left: 1%;
+      .comment-details{@include font-dpr(15px);color:#3d3d3d;margin: 0.05rem 0;}
+      .comment-times{color: #a1a1a1;@include font-dpr(13px)}
+      .userName{color:#00b0ff;@include font-dpr(14px);
+        &+span{    float: right; margin-right: 10%;color: #a1a1a1;@include font-dpr(13px)}
+
+      }
+    }
+  }
+  .item-info{
+    @extend .fa;padding:0.326rem 3%;    border-bottom: 1px solid #e0e0e0;background: #fafafa;display: none;
+    img{margin-right: 2%;}
+    div{width: 86%;
+      p{color:#3d3d3d;@include font-dpr(14px);}
+      p:last-child{@include font-dpr(12px);color: #636363;margin-top: 0.2rem;@include ellipsis(1);}
+    }
+
+  }
+  .item-info.active{display: flex;    display: -webkit-flex;display: -webkit-box;}
+}
+.sendComment{
+  position: fixed;
+  bottom: 1.1rem;
+  background: #dfdfdf;
+  height:2.5rem;
+  width: 100%;
+  textarea{height: 2rem;margin: 0.213rem 0 0.213rem 3%;width: 78.7%;border: 1px solid #bfbfbf;border-radius: 5px;padding-left: 3%;padding: .1rem 2%;}
+  a{float: right;    color: #00b0ff;margin-top: 1rem;
+    margin-right: 3%;@include font-dpr(15px);
+    text-align: center;
+    width: 15%;
+
+  }
+}
+.comment-info{
+  .item-info{position: fixed;top: 0;}
+}
+/*关注消息*/
+.focus-list{
+  .item{@extend .fa;padding-top: 0.44rem;
+    .comment{margin-left: 1%;
+      p:first-child{margin-bottom: 0.35rem}
+    }
+    .userName{color: #3d3d3d;@include font-dpr(16px)}
+  }
+}
+/*系统消息*/
+.systemInfo-list{
+  .item{padding: 0.4rem  3%; border-bottom: 1px solid #e0e0e0;
+    &:last-child{border-bottom: none;}
+    img{width: 10%;vertical-align: top;margin-right: 1%;}
+    div{display: inline-block;width: 80%;font-size: 0.346rem;
+      .times{margin-bottom: 0.266rem;}
+      .times+p{@include font-dpr(13px)}
+      p.title{@include font-dpr(14px)}
+      a{margin-top: 0.1rem;display: block;@include font-dpr(13px)}
+    }
+
+  }
+}
+/*所有品牌*/
+.wrap-search-box{position: fixed;left: 0;top: 0;width: 100%;background: $colorBackground;z-index: 99;
+  .search-box{width: 94%;margin: .2rem auto;background: $colorWhite;line-height: 0.893rem;border-radius: 5px;background: #fff;text-align: center;  box-sizing: border-box;
+    span{@include font-dpr(16px);vertical-align: middle;line-height: .893rem;display: inline-block;}
+    input{@include font-dpr(14px);width: 33%;vertical-align: middle;}
+  }
+}
+
+.brand-box{
+  .brand-content{margin-left: 28%;}
+  .brand-contain{width: 28%;left: 0;padding: 2.133rem 0 1.12rem;position: fixed;height: 100%;top: 0;overflow-y: auto;-webkit-overflow-scrolling: touch;
+    dt{padding: 0 .2rem;line-height: 0.84rem;border-top: 1px solid #e0e0e0;border-right: 1px solid #e0e0e0;background: $colorWhite;}
+    a{display: block;@include font-dpr(14px);padding-left: 2.3%;line-height: 0.8rem;color: #898989;}
+    a.active{color: $colorWhite;background: $colorBlue;position:relative;
+      &:after{content: "";position: absolute;right: -.3rem;top: 0;height: 100%;background: $colorBlue;width: .4rem;z-index: 11;border-top-right-radius: 50px;border-bottom-right-radius: 50px;}
+    }
+  }
+  .brand-content{width: 72%;right: 0;}
+}
+.list-item{
+
+  .item{position: relative;@extend .more;
+    &:before{right: 4%;}
+    @extend .fa;padding: 0.266rem 3% 0.266rem 5%;border-bottom: 1px solid #e0e0e0;
+    img{width: 20%;}
+    .content{margin-left: 2%;width: 73%;
+      .title{@include font-dpr(14px);color: #00b0eb;margin-bottom: 0.253rem;}
+      span{margin-right: 3%;
+        i,em{@include font-dpr(12px);color:#8e8e8e;}
+      }
+    }
+  }
+}
+.select-wrap{top: 1.293rem; position: fixed;height: 0.84rem;line-height: 0.84rem;right: 0;left:0;font-size: 0;z-index: 99;
+  div{display: inline-block;@include font-dpr(14px);text-align: center;}
+  div:first-child{width: 28%;border-right: 1px solid #e0e0e0;}
+  div:last-child{width: 72%;
+    a{display: inline-block;width: 14%;}
+  }
+  .contain-2-nav{
+    a{position: relative;}
+    a.active:after{content: ''; bottom: 0;width: 100%;position: absolute;left: 0;height: 5px;background-color: #00A0E9; transition: all .2s;-webkit-transition: all .2s;}
+  }
+}
+/*比价记录*/
+.parityRecord-list{
+  .item{@extend .fa;position: relative;padding: 0.266rem 3%;border-bottom: 1px solid #e0e0e0;
+    &:before{right: 4%;}
+    img{width: 15%;}
+  }
+}
+/*估值记录*/
+.valuationRecond-list{
+  .item{
+    img{width: 15%;}
+    .content{
+      p:first-child{@include font-dpr(14px)}
+      .times{@include font-dpr(12px)}
+      .details{@include font-dpr(12px);color: #8e8e8e;
+        span{@include font-dpr(14px)}
+      }
+    }
+  }
+
+}
+.layui-m-layerbtn span[no] {
+  color: #40AFFE;
+}
+/*估值首页*/
+.tsdsLogo{height: 1.16rem;text-align: center;line-height: 1.16rem;border-bottom: 1px solid #e0e0e0;@extend .faj;
+  img{width: 20%;}
+}
+.rankingList{
+  ul{
+    margin-bottom: 0.96rem;
+    li{height: 1.2rem;line-height: 1.2rem;border-bottom: 1px solid #e0e0e0;padding: 0 3%;@include font-dpr(14px);color: #333;
+      &:first-child{position: relative;
+        .chooseCity{position: absolute; right: 3%;top: 0.266rem;height:0.666rem;line-height: 0.666rem;border: 1px solid #e0e0e0;padding: 0 2%;color: #04a8ee;}
+      }
+      .num{color: #00b0ff;margin-right: 2%;}
+      .times{color: #ff5100;}
+      span:nth-child(2),span:nth-child(3){width: 40%;display: inline-block;}
+      span:last-child{float: right;}
+
+    }
+  }
+
+}
+/*选择城市*/
+.selectCity-wrap{
+  .mask{    transition: left .3s ease-out;left: 100%;}
+  .selectCity{width: 82%;position: absolute;top: 0;z-index: 101;padding-top: 1.133rem;background: #fff;left: 100%;
+    .title{  text-align: center;line-height: 1.133rem;@include font-dpr(15px);border-bottom: 1px solid $colorGray;position: fixed;top: 0;z-index: 102;background: $colorWhite;width: 82%;transition: left .3s ease-out;
+      .close{    position: absolute;left: 0;top: 0;height: 100%;width: 20%;}
+    }
+    .search-box{border: 1px solid #e0e0e0;border-radius: 10px;margin: 0.306rem 3%;position: initial;}
+    .sub-title{height: 0.933rem;line-height:0.933rem;border-bottom: 1px solid #e0e0e0;border-top: 1px solid #e0e0e0;@include font-dpr(14px);padding: 0 3%;}
+    .hotCity{padding-bottom: 0.213rem;
+      a{width: 25%;border: 1px solid #c9c9c9;margin: 0.213rem 3.5% 0 3.5%;padding: 0.186rem 0;display: inline-block;text-align: center;@include font-dpr(15px);}
+
+    }
+    .item{display:block;height: 1.146rem;line-height: 1.146rem;border-top: 1px solid #e0e0e0;padding-left: 3%;@include font-dpr(15px);}
+
+
+  }
+}
+
+//更换图片
+.wrap-change-img{
+  border-top: 1px solid $colorBackground;
+  .list-default{
+    &>:first-of-type{border-top: 1px solid #e0e0e0;}
+  }
+}
+//图片库
+.wrap-img-list{font-size: 0;
+  .item{position: relative;width: 44%;margin: .3rem 3%;display: inline-block;
+    img{border: 8px solid transparent;}
+    input{position: absolute;width: 100%;height: 100%;top: 0;left: 0;opacity: 0;}
+    :checked~img{border: 8px solid $colorBlue;}
+  }
+}
+.fixed-bottom{position: fixed;bottom: 1.37rem;width: 100%;left: 0;}
+.nav-images{line-height: .8rem;border-bottom: 1px solid $colorGray;
+  a{display: inline-block;position: relative;padding:0 .3rem;height: 100%;
+    &.active:after{    content: ''; bottom: 0;width: 100%;position: absolute;left: 0;height: 5px;background-color: #00A0E9; transition: all .2s;-webkit-transition: all .2s;}
+  }
+}
+.wrap-marks{
+  span{margin: .2rem 2% 0 0;padding: .05rem .1rem;@include font-dpr(12px);display: inline-block;border: 1px solid $colorGray;color: $colorGray;@include border-radius(50px);}
+  .active{background: $colorBlue;border-color: $colorBlue;color: $colorWhite;}
+}
+//键盘
+.wrap-keyboard{background: $colorBackground;padding-top: .133rem;display: none;    z-index: 2;
+  div{font-size: 0;
+    span,.del{width: 8.5%;box-shadow: 1px 0 0 #000;line-height: 0.96rem;@include border-radius(10px);display: inline-block;@include font-dpr(15px);text-align: center;margin-left: 1.3%;background: $colorWhite;margin-bottom: 0.133rem;@include active();}
+    .del{width: 12%;}
+    &:nth-of-type(3){
+      :first-child{margin-left: 7%;}
+    }
+    &:nth-of-type(4){
+      :first-child{margin-left: 10%;}
+    }
+    &:last-of-type{
+      i{display: table;width: 98%;margin:0 auto;line-height: 0.96rem;background: $colorWhite;@include border-radius(10px);@include font-dpr(15px);text-align: center;box-shadow: 1px 0 0 #000;@include active();}
+    }
+  }
+}
+//键盘
+//查维保
+.wrap-maintenance{
+  .input-only{margin: 0.3rem 0;
+    input{text-align: left;    width: 100%;}
+  }
+}
+.title-maintenance{margin:0.2rem 0 0 3%;@include font-dpr(14px);padding-left: 2%;border-left: 7px solid #00b0ff;}
+.box-item{
+  .item{@extend .fa;height: 1rem;@include font-dpr(13px);    border-bottom: 1px solid #e0e0e0; padding: 0 2%;}
+}
+.list-default{
+  .title-maintenance{border-bottom: 1px solid #e0e0e0;line-height: 1rem; padding-left: 1%;margin: 0;border-left: 5px solid #00b0ff;
+    .btn{float: right;@extend .btn-default;width: 20%;height: .6rem;line-height: .6rem;margin: .2rem 1% 0 0;}
+  }
+}
+.wrap-reportSample{
+  .icon-report{ position: absolute;right: 0;top: 0;width: 1.3rem;}
+  .list-default{
+    .title-maintenance {
+      span{height: 0.1rem;display: inline-block;}
+    }
+  }
+  .list-recond{overflow: hidden;padding: 0.2rem 3%;
+    span,ul{float: left;}
+    span{margin-right: 2%;}
+  }
+  .txt-letter{line-height: 0.5rem;@include font-dpr(13px);padding: 0 3% 0.5rem;
+    p{text-align: center;    margin: 0.2rem 0;
+      img{width: 0.5rem;vertical-align:-0.05rem;margin-right: 1%;}
+    }
+
+  }
+}
+.bottom-tips{text-align: center;@include font-dpr(13px);bottom: 2rem;position: absolute;width: 100%;
+  .icon-accept{width: 0.4rem;vertical-align: -0.08rem;margin-right:1%;}
+}
+/*服务协议*/
+.wrap-service{@include font-dpr(13px);line-height: .6rem;
+  .txt-letter{margin:0 0 0.6rem;}
+}
+/*付费查询*/
+.wrap-payQuery{
+  .list-data{
+    .item{border-bottom: none;}
+  }
+  .icon-time{width: 4%;vertical-align: -0.07rem; margin-right: 1%;}
+  .colorful-edge{background: url(../../images/weixin/colorfulEdge.png) repeat-x;height: 0.16rem;width: 100%;margin-top: 0.3rem; margin-bottom: -0.1rem;}
+  .txt-letter{padding: 0.3rem 3%;
+    .title{font-weight: bold;@include font-dpr(15px);margin-bottom: 0.2rem;}
+    div{line-height: 0.6rem;}
+  }
+  .list-default{
+    .item{height: 0.7rem;}
+  }
+  .bottom-price{@extend .fa;position: absolute;height: 1.333rem;line-height: 1.333rem;border-top: 1px solid #e0e0e0;width: 100%;bottom: 1.12rem;background: #fffefe;
+    .price{padding-left: 3%;
+      .col-blue{@include font-dpr(18px)}
+      .col-orange{@include font-dpr(15px)}
+    }
+    .btn-submit{width: 30%;background:#ff6600;color: #fff;text-align: center;@include font-dpr(17px);}
+  }
+}
+//维保记录
+.icon-authentication{width: 10%;}
+/*支付页面*/
+.paymentValidate{
+
+  input{line-height: 1rem;height: 1rem;border: 1px solid #D0D0D0;width: 60%;}
+  img{width: 31%;vertical-align: bottom;height: 1.01rem;margin-left: 4%;}
+}
+.wrap-payment{
+  .item-carInfo{@include font-dpr(13px);
+    img{width: 7%;vertical-align: -0.12rem;margin-right: 1%;}
+  }
+  .price{@include font-dpr(30px)}
+  .price+div{color: #585858;@include font-dpr(15px);margin-bottom: 1rem;}
+  .item{@extend .fa;padding: 0.3rem 3%;border-bottom: 1px solid #e0e0e0;position: relative;
+    input[type='radio']{position: absolute;left: 0;right: 0;bottom: 0;top: 0;width: 100%;height: 100%;opacity: 0;z-index: 2;
+      &:checked+.select-active{display: block;}
+    }
+    .select-active+div{width: 33%;}
+    .select-active{z-index: 1;display: none;
+      i{    position: absolute;
+        content: "";
+        top: 0rem;
+        left: 0.08rem;
+        margin-top: 0.07rem;
+        height: .17rem;
+        width: 0.3rem;
+        background: transparent;
+        border-left: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        transform: rotate(-45deg);}
+    }
+    span{
+      position: absolute;
+      top: 0;
+      right: 3%;
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: #00b0ff;
+      top: 50%;
+      margin-top: -0.22rem;
+    }
+    div{
+
+      img{width:0.56rem;vertical-align: -0.14rem;margin-right: 4%;}
+    }
+  }
+}
+//充值成功
+.wrap-rechargeSuccess{
+  .item{text-align: center;padding: 3.5rem 0 0;
+    img{width: 15%;}
+    p{@include font-dpr(18px);margin-top: 0.2rem;}
+  }
+  .list-item{@extend .fa;height:0.8rem;}
+  .list-default{border-bottom: 1px solid #e0e0e0;border-top: 1px solid #e0e0e0;padding: 0.2rem 3%;}
+}

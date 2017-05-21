@@ -1,0 +1,159 @@
+extends layout
+block content
+    .wrap
+      #info
+        .wrap-img
+          img(:src="imgSrc", alt="")
+        | 				
+        hr
+        | 				
+        .wrap-default
+          .spacing-default
+            .title-default.f
+              div(style="width: 75%;") {{name}}
+              .f1
+              | 							
+              span
+                img(src="../../../../public/images/weixin/icon-authentication.png", alt="")
+              span.col-blue 实名认证
+            | 					
+            p.spacing-default {{area}} | {{year}}年 | {{km}}万公里 
+            | 					
+            div
+              | 估值价格：
+              span.col-blue.title-default {{price}}万
+        | 				
+        .spacing-default.bg-default
+        | 				
+        .wrap-default.title-default
+          .spacing-default
+            | 车辆档案 
+            a.right.col-gray(href="allBrand.html")
+              | 更新时间：2017-05-23
+              i.icon-right
+        | 				
+        ul.list-carinfo.wrap-default
+          li
+            span.col-gray 所在地
+            | {{area}}
+          | 					
+          li
+            span.col-gray 牌照归属
+            | {{area}}
+          | 					
+          li
+            span.col-gray 上牌时间
+            | {{time}}
+          | 					
+          li
+            span.col-gray 表显里程
+            | {{km}}
+          | 					
+          li
+            span.col-gray 排量
+            | {{pail}}
+          | 					
+          li
+            span.col-gray 变速箱
+            | {{bsx}}
+          | 					
+          li
+            span.col-gray 排放标准
+            | {{pfbz}}
+          | 					
+          li
+            span.col-gray 颜色
+            | {{color}}
+        | 				
+        .spacing-default
+        | 				
+        .wrap-default
+          a.btn-default 查看配置
+        | 				
+        .spacing-default
+      | 			
+      .spacing-default.bg-default
+      |  
+      | 			
+      .wrap-default
+        .spacing-default
+        | 				
+        nav.nav-contain-2
+          a.active(href="javascript:;") 同车系车源
+          | 					
+          a(href="javascript:;") 同价位车源
+        | 				
+        .spacing-default
+      | 			
+      #content
+        .item
+          .list-normal
+            a.item(href="carSrcDetails.html", v-for="item in items")
+              .fa
+                .wrap-img
+                  img(:src="item.imgSrc")
+                | 								
+                .f1
+                  .title-default {{item.name}}
+                  | 									
+                  p.spacing-default {{item.area}} | {{item.year}}年 | {{item.km}}万公里 
+                  | 									
+                  div
+                    | 估值价格：
+                    span.col-blue.title-default {{item.price}}万
+              | 							
+              .bottom.fa
+                span.realname 实名认证
+                .col-gray {{item.peoplename}}
+                .f1
+                |  
+                .col-gray {{item.time}}
+        | 				
+        .item
+          .list-normal
+            a.item(href="carSrcDetails.html", v-for="item in items_")
+              .fa
+                .wrap-img
+                  img(:src="item.imgSrc")
+                | 								
+                .f1
+                  .title-default {{item.name}}
+                  | 									
+                  p.spacing-default {{item.area}} | {{item.year}}年 | {{item.km}}万公里 
+                  | 									
+                  div
+                    | 估值价格：
+                    span.col-blue.title-default {{item.price}}万
+              | 							
+              .bottom.fa
+                span.realname 实名认证
+                .col-gray {{item.peoplename}}
+                .f1
+                |  
+                .col-gray {{item.time}}
+    script(type="text/javascript").
+      $(function(){
+      $("#index_home").addClass('active');
+      new Vue({
+      el:"#info",
+      data:{
+      name:"马自达阿特兹 2015款 2.0L 蓝天 时尚版 ",area:"北京",year:"2015",km:"2.3",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2859.jpg",price:12.99,peoplename:"王生",time:"2015-05-05",pail:"2.0T",bsx:"自动",pfbz:"国四",color:"红色"
+      }
+      });
+      new Vue({
+      el:"#content",
+      data:{
+      items:[
+      {name:"马自达阿特兹 2015款 2.0L 蓝天 时尚版 ",area:"北京",year:"2015",km:"2.3",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2859.jpg",price:12.99,peoplename:"王生",time:"2015-05-05"},
+      {name:"马自达阿特兹 2015款 2.0L 蓝天 时尚版 ",area:"北京",year:"2015",km:"2.3",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2859.jpg",price:12.99,peoplename:"王生",time:"2015-05-05"},
+      {name:"马自达阿特兹 2015款 2.0L 蓝天 时尚版 ",area:"北京",year:"2015",km:"2.3",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2859.jpg",price:12.99,peoplename:"王生",time:"2015-05-05"},
+      ],
+      items_:[
+      {name:"马自达阿特兹 2017 2.0L 蓝天 家庭版 ",area:"北京",year:"2017",km:"2.0",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2857.jpg",price:888.877,peoplename:"王生1",time:"2015-05-09"},
+      {name:"马自达阿特兹 2017 2.0L 蓝天 家庭版 ",area:"北京",year:"2017",km:"2.0",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2857.jpg",price:888.877,peoplename:"王生1",time:"2015-05-09"},
+      {name:"马自达阿特兹 2017 2.0L 蓝天 家庭版 ",area:"北京",year:"2017",km:"2.0",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2857.jpg",price:888.877,peoplename:"王生1",time:"2015-05-09"},
+      ],
+      }
+      });
+      $("[class*='nav-contain-']").tabs("#content>.item");
+      })

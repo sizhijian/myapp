@@ -1,0 +1,41 @@
+{
+  "name": "myapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.1",
+    "gulp-babel": "^6.1.1",
+    "gulp-cache": "^0.4.2",
+    "gulp-cssnano": "^2.0.0",
+    "gulp-eslint": "^3.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.0",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-useref": "^3.0.0",
+    "mongodb": "^2.2.26",
+    "mongoose": "^4.10.0",
+    "pug": "^2.0.0-rc.1",
+    "run-sequence": "^1.2.2",
+    "supervisor": "^0.12.0"
+  }
+}

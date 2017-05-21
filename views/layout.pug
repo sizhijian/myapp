@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        title 淘车大师-首页
+        meta(charset='utf-8')
+        script(src='/javascripts/flexible_css.js', type='text/javascript', charset='utf-8')
+        script(src='/javascripts/flexible.debug.js', type='text/javascript', charset='utf-8')
+        link(rel='stylesheet', type='text/css', href='/stylesheets/swiper.min.css')
+        link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+        script(src="https://unpkg.com/vue/dist/vue.js", type="text/javascript", charset="utf-8")
+        script(src='http://img.bangkanche.com/common3.0/src/javascripts/jquery.min.js', type='text/javascript', charset='utf-8')
+        script(src='http://img.bangkanche.com/common3.0/src/plugins/fastclick/fastclick.js', type='text/javascript', charset='utf-8')
+        script(src='/plugs/makefixed.js-master/makefixed.js', type='text/javascript', charset='utf-8')
+        script(src='/javascripts/activity.js', type='text/javascript', charset='utf-8')
+        script(src='/javascripts/swiper.jquery.min.js', type='text/javascript', charset='utf-8')
+    body
+        footer.footer
+            nav.fa
+                a#index_home.f1(href='/')
+                    i.icon-home
+                    p 首页
+                a#index_cha.f1(href='/')
+                    i.justfont 估
+                    p 查估价
+                a#index_bi.f1(href='/')
+                    i.justfont 比
+                    p 比车价
+                a#index_bi.f1(href='/')
+                    i.justfont 维
+                    p 查维保
+                a#index_mine.f1(href='/')
+                    i.icon-mine
+                    p 我
+        block content

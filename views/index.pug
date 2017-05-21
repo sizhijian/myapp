@@ -1,0 +1,109 @@
+extends layout
+block content
+    .wrap
+      .swiper-container
+        .swiper-wrapper
+          .swiper-slide.wrap-img
+            img(src="/images/weixin/banner-index.png")
+          | 					
+          .swiper-slide.wrap-img
+            img(src="/images/banner-01.png")
+          | 					
+          .swiper-slide.wrap-img
+            img(src="/images/weixin/banner-comporePrice.png")
+        | 				
+        .swiper-pagination
+      | 	
+      | 			
+      .spacing-default.bg-default
+      | 			
+      .wrap-default 
+        each job in data
+          .font-super= job.name
+      | 			
+      .wrap-menu-line.faj
+        a.f1(href="valuationIndex.html")
+          img(src="/images/menu-9.png")
+          | 					
+          .title-center 查估价
+        | 				
+        a.f1(href="comporeIndex.html")
+          img(src="/images/menu-10.png")
+          | 					
+          .title-center 查比价
+        | 				
+        a.f1(href="maintenance.html")
+          img(src="/images/menu-11.png")
+          | 					
+          .title-center 查维保
+      .spacing-default.bg-default
+      | 			
+      #makeFixed.wrap-default.title-default
+        .spacing-default
+          | 猜你喜欢
+          a.right.col-orange(href="carSrcList.html") 查看更多车源信息>>
+      | 			
+      #list.list-normal
+        a.item(href="/carsrcetails", v-for="item in items")
+          .fa
+            .wrap-img
+              img(:src="item.imgSrc")
+            | 						
+            .f1
+              .title-default {{item.name}}
+              | 							
+              p.spacing-default {{item.area}} | {{item.year}}年 | {{item.km}}万公里 
+              | 							
+              div
+                | 估值价格：
+                span.col-blue.title-default {{item.price}}万
+          | 					
+          .bottom.fa
+            span.realname 实名认证
+            .col-gray {{item.peoplename}}
+            .f1
+            |  
+            .col-gray {{item.time}}
+        | 				
+        .title-center(v-if="items.length!=0", v-on:click="refresh")
+          .spacing-default
+          | 					O 换一批
+          | 					
+          .spacing-default
+        | 				
+        .no-data(v-if="items.length==0")
+          | 没有更多数据
+          .spacing-default
+          | 					
+          .spacing-default
+          | 					
+          .spacing-default
+          | 					
+          .spacing-default
+            input(type="hidden",value=data,id="aa")
+    script(type="text/javascript").
+      $(function(){
+      console.log($("#aa").val())
+        var a__ = JSON.parse($("#aa").val())
+      $("#index_home").addClass('active');
+      var mySwiper = new Swiper('.swiper-container', {
+      autoplay: 3000, //可选选项，自动滑动
+      loop : true,
+      pagination : '.swiper-pagination',
+      paginationType : 'progress',
+      });
+      $("#makeFixed").makeFixed();
+      new Vue({
+      el:"#list",
+      data:{
+      items:a__
+      },
+      methods:{
+      refresh:function(){
+      this.items=[
+      {name:"马自达阿特兹 2015款 2.0L 蓝天 时尚版 ",area:"北京",year:"2015",km:"2.3",imgSrc:"http://img.bangkanche.com/images/car/carseries/m2857.jpg",price:12.99,peoplename:"王生",time:"2015-05-05"},
+      ];
+      }
+      }
+      })
+      })
